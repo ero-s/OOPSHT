@@ -38,13 +38,13 @@ public class interactiveTile extends Entity
         }
     }
     public void draw (Graphics2D g2) {
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
+        int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY)
+        if(worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
+                worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
+                worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
+                worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY)
         {
             g2.drawImage(down1, screenX, screenY, null);
         }

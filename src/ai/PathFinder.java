@@ -22,17 +22,17 @@ public class PathFinder {
     }
     public void instantiateNodes()
     {
-        node = new Node[gp.maxWorldCol][gp.maxWorldRow];
+        node = new Node[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
 
         int col = 0;
         int row = 0;
 
-        while(col < gp.maxWorldCol && row < gp.maxWorldRow)
+        while(col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow())
         {
             node[col][row] = new Node(col,row);
 
             col++;
-            if(col == gp.maxWorldCol)
+            if(col == gp.getMaxWorldCol())
             {
                 col = 0;
                 row++;
@@ -45,7 +45,7 @@ public class PathFinder {
     {
         int col = 0;
         int row = 0;
-        while(col < gp.maxWorldCol && row < gp.maxWorldRow)
+        while(col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow())
         {
             //reset open, checked and solid state
             node[col][row].open = false;
@@ -53,7 +53,7 @@ public class PathFinder {
             node[col][row].solid = false;
 
             col++;
-            if(col == gp.maxWorldCol)
+            if(col == gp.getMaxWorldCol())
             {
                 col = 0;
                 row++;
@@ -76,24 +76,24 @@ public class PathFinder {
 
         int col = 0;
         int row = 0;
-        while(col < gp.maxWorldCol && row < gp.maxWorldRow)
+        while(col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow())
         {
             //SET SOLID NODE
             //CHECK TILES
-            int tileNum = gp.tileM.mapTileNum[gp.currentMap][col][row];
-            if(gp.tileM.tile[tileNum].collision == true)
+            int tileNum = gp.getTileM().mapTileNum[gp.getCurrentMap()][col][row];
+            if(gp.getTileM().tile[tileNum].collision == true)
             {
                 node[col][row].solid = true;
 
             }
             //CHECK INTERACTIVE TILES
-            for(int i = 0; i < gp.iTile[1].length; i++)
+            for(int i = 0; i < gp.getiTile()[1].length; i++)
             {
-                if(gp.iTile[gp.currentMap][i] != null &&
-                        gp.iTile[gp.currentMap][i].destructible == true)
+                if(gp.getiTile()[gp.getCurrentMap()][i] != null &&
+                        gp.getiTile()[gp.getCurrentMap()][i].destructible == true)
                 {
-                    int itCol = gp.iTile[gp.currentMap][i].worldX / gp.tileSize;
-                    int itRow = gp.iTile[gp.currentMap][i].worldY / gp.tileSize;
+                    int itCol = gp.getiTile()[gp.getCurrentMap()][i].worldX / gp.getTileSize();
+                    int itRow = gp.getiTile()[gp.getCurrentMap()][i].worldY / gp.getTileSize();
                     node[itCol][itRow].solid = true;
                 }
             }
@@ -101,7 +101,7 @@ public class PathFinder {
             getCost(node[col][row]);
 
             col++;
-            if(col == gp.maxWorldCol)
+            if(col == gp.getMaxWorldCol())
             {
                 col = 0;
                 row++;
@@ -145,12 +145,12 @@ public class PathFinder {
                 openNode(node[col-1][row]);
             }
             //open the DOWN node
-            if(row + 1 <= gp.maxWorldRow)
+            if(row + 1 <= gp.getMaxWorldRow())
             {
                 openNode(node[col][row+1]);
             }
             //open the RIGHT node
-            if(col + 1 <= gp.maxWorldCol)
+            if(col + 1 <= gp.getMaxWorldCol())
             {
                 openNode(node[col+1][row]);
             }

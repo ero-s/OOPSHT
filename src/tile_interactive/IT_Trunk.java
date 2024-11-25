@@ -9,10 +9,10 @@ public class IT_Trunk extends InteractiveTile{
         super(gp, col, row);
         this.gp = gp;
 
-        this.worldX = gp.tileSize * col;
-        this.worldY = gp.tileSize * row;
+        this.worldX = gp.getTileSize() * col;
+        this.worldY = gp.getTileSize() * row;
 
-        down1 = setup("/tiles_interactive/trunk",gp.tileSize,gp.tileSize);
+        down1 = setup("/tiles_interactive/trunk", gp.getTileSize(), gp.getTileSize());
 
         // NO COLLISION
         solidArea.x = 0;

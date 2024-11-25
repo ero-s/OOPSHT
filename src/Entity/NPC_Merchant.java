@@ -27,14 +27,14 @@ public class NPC_Merchant extends Entity{
     }
     public void getImage()
     {
-        up1 = setup("/npc/merchant_down_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/npc/merchant_down_2",gp.tileSize,gp.tileSize);
-        down1 = setup("/npc/merchant_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/npc/merchant_down_2",gp.tileSize,gp.tileSize);
-        left1 = setup("/npc/merchant_down_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/npc/merchant_down_2",gp.tileSize,gp.tileSize);
-        right1 = setup("/npc/merchant_down_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/npc/merchant_down_2",gp.tileSize,gp.tileSize);
+        up1 = setup("/npc/merchant_down_1", gp.getTileSize(), gp.getTileSize());
+        up2 = setup("/npc/merchant_down_2", gp.getTileSize(), gp.getTileSize());
+        down1 = setup("/npc/merchant_down_1", gp.getTileSize(), gp.getTileSize());
+        down2 = setup("/npc/merchant_down_2", gp.getTileSize(), gp.getTileSize());
+        left1 = setup("/npc/merchant_down_1", gp.getTileSize(), gp.getTileSize());
+        left2 = setup("/npc/merchant_down_2", gp.getTileSize(), gp.getTileSize());
+        right1 = setup("/npc/merchant_down_1", gp.getTileSize(), gp.getTileSize());
+        right2 = setup("/npc/merchant_down_2", gp.getTileSize(), gp.getTileSize());
     }
     public void setDialogue()
     {
@@ -54,7 +54,7 @@ public class NPC_Merchant extends Entity{
     public void speak()
     {
         facePlayer();
-        gp.gameState = gp.tradeState;
-        gp.ui.npc = this;
+        gp.setGameState(gp.getTradeState());
+        gp.getUi().npc = this;
     }
 }

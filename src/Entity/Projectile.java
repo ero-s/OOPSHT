@@ -23,29 +23,29 @@ public class Projectile extends Entity{
     public void update()
     {
 
-        if(user == gp.player)
+        if(user == gp.getPlayer())
         {
-            int monsterIndex = gp.cChecker.checkEntity(this,gp.monster);
+            int monsterIndex = gp.getcChecker().checkEntity(this, gp.getMonster());
             if(monsterIndex != 999) //collision with monster
             {
-                gp.player.damageMonster(monsterIndex, this, attack * (1 + (gp.player.level / 2)), knockBackPower);   //attack : projectile's attack (2) // fireball dmg increases in every 2 levels
-                generateParticle(user.projectile,gp.monster[gp.currentMap][monsterIndex]);
+                gp.getPlayer().damageMonster(monsterIndex, this, attack * (1 + (gp.getPlayer().level / 2)), knockBackPower);   //attack : projectile's attack (2) // fireball dmg increases in every 2 levels
+                generateParticle(user.projectile, gp.getMonster()[gp.getCurrentMap()][monsterIndex]);
                 alive = false;
             }
         }
-        if(user != gp.player)
+        if(user != gp.getPlayer())
         {
-            boolean contactPlayer = gp.cChecker.checkPlayer(this);
-            if(gp.player.invincible == false && contactPlayer == true)
+            boolean contactPlayer = gp.getcChecker().checkPlayer(this);
+            if(gp.getPlayer().invincible == false && contactPlayer == true)
             {
                 damagePlayer(attack);
-                if(gp.player.guarding == true)
+                if(gp.getPlayer().guarding == true)
                 {
                     generateParticle(user.projectile,user.projectile);
                 }
                 else
                 {
-                    generateParticle(user.projectile,gp.player);
+                    generateParticle(user.projectile, gp.getPlayer());
                 }
 
                 alive = false;

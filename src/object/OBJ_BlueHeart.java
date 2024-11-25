@@ -15,7 +15,7 @@ public class OBJ_BlueHeart extends Entity {
 
         type = type_pickupOnly;
         name = objName;
-        down1 = setup("/objects/blueheart", gp.tileSize, gp.tileSize);
+        down1 = setup("/objects/blueheart", gp.getTileSize(), gp.getTileSize());
         setDialogues();
     }
     public void setDialogues()
@@ -25,8 +25,8 @@ public class OBJ_BlueHeart extends Entity {
     }
     public boolean use(Entity entity) //when pickup this method will be called
     {
-        gp.gameState = gp.cutsceneState;
-        gp.csManager.sceneNum = gp.csManager.ending;
+        gp.setGameState(gp.getCutsceneState());
+        gp.getCsManager().sceneNum = gp.getCsManager().ending;
         return true;
     }
 

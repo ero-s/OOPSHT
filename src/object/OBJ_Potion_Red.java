@@ -16,7 +16,7 @@ public class OBJ_Potion_Red extends Entity {
         type = type_consumable;
         name = objName;
         value = 5;
-        down1 = setup("/objects/potion_red", gp.tileSize, gp.tileSize);
+        down1 = setup("/objects/potion_red", gp.getTileSize(), gp.getTileSize());
         description = "[" + name + "]\nHeals your life by " + value + ".";
         price = 50;
         stackable = true;

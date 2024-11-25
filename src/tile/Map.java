@@ -20,25 +20,25 @@ public class Map extends TileManager{
     }
     public void createWorldMap()
     {
-        worldMap = new BufferedImage[gp.maxMap];
-        int worldMapWidth = gp.tileSize * gp.maxWorldCol;
-        int worldMapHeight = gp.tileSize * gp.maxWorldRow;
+        worldMap = new BufferedImage[gp.getMaxMap()];
+        int worldMapWidth = gp.getTileSize() * gp.getMaxWorldCol();
+        int worldMapHeight = gp.getTileSize() * gp.getMaxWorldRow();
 
-        for(int i = 0; i < gp.maxMap; i++)
+        for(int i = 0; i < gp.getMaxMap(); i++)
         {
             worldMap[i] = new BufferedImage(worldMapWidth,worldMapHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) worldMap[i].createGraphics();  //Attach this g2 to worldMap Buffered image
 
             int col = 0;
             int row = 0;
-            while(col < gp.maxWorldCol && row < gp.maxWorldRow)
+            while(col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow())
             {
                 int tileNum = mapTileNum[i][col][row];
-                int x = gp.tileSize * col;
-                int y = gp.tileSize * row;
+                int x = gp.getTileSize() * col;
+                int y = gp.getTileSize() * row;
                 g2.drawImage(tile[tileNum].image, x, y, null);
                 col++;
-                if(col == gp.maxWorldCol)
+                if(col == gp.getMaxWorldCol())
                 {
                     col = 0;
                     row++;
@@ -51,24 +51,24 @@ public class Map extends TileManager{
     {
         //Background Color
         g2.setColor(Color.black);
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0, gp.getScreenWidth(), gp.getScreenHeight());
 
         //Draw map
         int width = 500;
         int height = 500;
-        int x = gp.screenWidth/2 - width/2;
-        int y = gp.screenHeight/2 - height/2;
-        g2.drawImage(worldMap[gp.currentMap], x, y, width, height, null);
+        int x = gp.getScreenWidth() /2 - width/2;
+        int y = gp.getScreenHeight() /2 - height/2;
+        g2.drawImage(worldMap[gp.getCurrentMap()], x, y, width, height, null);
 
         //Draw Player
-        double scale = (double) (gp.tileSize * gp.maxWorldCol)/width; //Scaling from actual map
-        int playerX = (int)(x + gp.player.worldX/scale);
-        int playerY = (int)(y + gp.player.worldY/scale);
-        int playerSize = (int)(gp.tileSize/scale);
-        g2.drawImage(gp.player.down1,playerX,playerY,playerSize,playerSize,null);
+        double scale = (double) (gp.getTileSize() * gp.getMaxWorldCol())/width; //Scaling from actual map
+        int playerX = (int)(x + gp.getPlayer().worldX/scale);
+        int playerY = (int)(y + gp.getPlayer().worldY/scale);
+        int playerSize = (int)(gp.getTileSize() /scale);
+        g2.drawImage(gp.getPlayer().down1,playerX,playerY,playerSize,playerSize,null);
 
         //Hint
-        g2.setFont(gp.ui.maruMonica.deriveFont(32f));
+        g2.setFont(gp.getUi().maruMonica.deriveFont(32f));
         g2.setColor(Color.white);
         g2.drawString("Press M to close", 750, 550);
     }
@@ -79,18 +79,18 @@ public class Map extends TileManager{
             //Draw map
             int width = 200;
             int height = 200;
-            int x = gp.screenWidth - width - 50;
+            int x = gp.getScreenWidth() - width - 50;
             int y = 50;
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f)); //little transparency
-            g2.drawImage(worldMap[gp.currentMap], x, y, width, height,null);
+            g2.drawImage(worldMap[gp.getCurrentMap()], x, y, width, height,null);
 
             //Draw Player
-            double scale = (double) (gp.tileSize * gp.maxWorldCol)/width; //Scaling from actual map
-            int playerX = (int)(x + gp.player.worldX/scale);
-            int playerY = (int)(y + gp.player.worldY/scale);
-            int playerSize = (int)(gp.tileSize/3); //(int)(gp.tileSize/scale);
-            g2.drawImage(gp.player.down1,playerX-6,playerY-6,playerSize,playerSize,null); //playerX,playerY
+            double scale = (double) (gp.getTileSize() * gp.getMaxWorldCol())/width; //Scaling from actual map
+            int playerX = (int)(x + gp.getPlayer().worldX/scale);
+            int playerY = (int)(y + gp.getPlayer().worldY/scale);
+            int playerSize = (int)(gp.getTileSize() /3); //(int)(gp.tileSize/scale);
+            g2.drawImage(gp.getPlayer().down1,playerX-6,playerY-6,playerSize,playerSize,null); //playerX,playerY
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f)); //reset alpha
         }

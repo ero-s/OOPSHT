@@ -1,9 +1,11 @@
 package Entity;
 
+import main.CollisionChecker;
 import main.GamePanel;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 
 import java.awt.image.BufferedImage;
@@ -12,14 +14,17 @@ import java.io.IOException;
 
 public class Entity
 {
-    public Panel panel;
+    public GamePanel gp;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, image2, image3;
+    public CollisionChecker checker;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0 , 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
+    public boolean temp;
+    public ActionMap inventory;
     String dialogues[] = new String[20];
 
     // state
@@ -80,9 +85,11 @@ public class Entity
     public final int type_shield = 5;
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
+    public int screenX;
+    public int screenY;
 
-    public Entity(GamePanel panel) {
-        this.panel = panel;
+    public Entity(GamePanel gp) {
+        this.gp = gp;
 
     }
 
@@ -94,11 +101,11 @@ public class Entity
     public void use(Entity entity) {}
     public void checkDrop(){}
     public void dropItem(Entity droppedItem){
-        for(int i = 0; i < panel.obj.length; i++) {
-            if(panel.obj[i] == null) {
-                panel.obj[i] = droppedItem;
-                panel.obj[i].worldX = worldX; // dead monster's worldX
-                panel.obj[i].worldY = worldY;
+        for(int i = 0; i < gp.getObj().length; i++) {
+            if(gp.getObj()[gp.getCurrentMap()][i] == null) {
+                gp.getObj()[gp.getCurrentMap()][i] = droppedItem;
+                gp.getObj()[gp.getCurrentMap()][i].worldX = worldX; // dead monster's worldX
+                gp.getObj()[gp.getCurrentMap()][i].worldY = worldY;
                 break;
             }
         }
@@ -125,14 +132,14 @@ public class Entity
         int speed = generator.getParticleSpeed();
         int maxLife = generator.getParticleMaxLife();
 
-        Particle p1 = new Particle(panel, target, color, size, speed, maxLife, -2, -1);
-        Particle p2 = new Particle(panel, target, color, size, speed, maxLife, 2, -1);
-        Particle p3 = new Particle(panel, target, color, size, speed, maxLife, -2, 1);
-        Particle p4 = new Particle(panel, target, color, size, speed, maxLife, 2, 1);
-        panel.particleList.add(p1);
-        panel.particleList.add(p2);
-        panel.particleList.add(p3);
-        panel.particleList.add(p4);
+        Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -2, -1);
+        Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 2, -1);
+        Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -2, 1);
+        Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 2, 1);
+        gp.getParticleList().add(p1);
+        gp.getParticleList().add(p2);
+        gp.getParticleList().add(p3);
+        gp.getParticleList().add(p4);
 
     }
     public void update() {
@@ -140,12 +147,12 @@ public class Entity
         setAction();
 
         collisionOn = false;
-        panel.checker.checkTile(this);
-        panel.checker.checkObject(this, false);
-        panel.checker.checkEntity(this, new Entity[][]{panel.npc});
-        panel.checker.checkEntity(this, new Entity[][]{panel.monster});
-        panel.checker.checkEntity(this, new Entity[][]{panel.iTile});
-        boolean contactPlayer = panel.checker.checkPlayer(this);
+        gp.getChecker().checkTile(this);
+        gp.getChecker().checkObject(this, false);
+        gp.getChecker().checkEntity(this, new Entity[][]{gp.getNpc()});
+        gp.getChecker().checkEntity(this, new Entity[][]{gp.getMonster()});
+        gp.getChecker().checkEntity(this, new Entity[][]{gp.getiTile()});
+        boolean contactPlayer = gp.getChecker().checkPlayer(this);
 
         if(this.type == type_monster && contactPlayer == true) {
             damagePlayer(attack);
@@ -183,27 +190,27 @@ public class Entity
         }
     }
     public void damagePlayer(int attack) {
-            if(panel.player.invincible == false) {
+            if(gp.getPlayer().invincible == false) {
                 // player can take damage
-                panel.playSE(6);
-                int damage = attack - panel.player.defense;
+                gp.playSE(6);
+                int damage = attack - gp.getPlayer().defense;
                 if (damage < 0) {
                     damage = 0;
                 }
-                panel.player.life -= damage;
-                panel.player.invincible = true;
+                gp.getPlayer().life -= damage;
+                gp.getPlayer().invincible = true;
             }
         }
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        int screenX = worldX - panel.player.worldX + panel.player.screenX;
-        int screenY = worldY - panel.player.worldY + panel.player.screenY;
+        int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
+        int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
-        if(worldX + panel.tileSize > panel.player.worldX - panel.player.screenX &&
-                worldX - panel.tileSize < panel.player.worldX + panel.player.screenX &&
-                worldY + panel.tileSize > panel.player.worldY - panel.player.screenY &&
-                worldY - panel.tileSize < panel.player.worldY + panel.player.screenY)
+        if(worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
+                worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
+                worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
+                worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY)
         {
             switch(direction) {
                 case "up":
@@ -226,11 +233,11 @@ public class Entity
 
             // monster hp bar
             if(type == 2 && hpBarOn == true) {
-                double oneScale = (double)panel.tileSize/maxLife;
+                double oneScale = (double)gp.tileSize/maxLife;
                 double hpBarValue = oneScale*life;
 
                 g2.setColor(new Color(35, 35, 35));
-                g2.fillRect(screenX - 1, screenY - 16, panel.tileSize + 2, 12); // outline of the health bar
+                g2.fillRect(screenX - 1, screenY - 16, gp.tileSize + 2, 12); // outline of the health bar
 
                 g2.setColor(new Color(255, 0, 30));
                 g2.fillRect(screenX, screenY - 15, (int)hpBarValue, 10);
@@ -292,5 +299,11 @@ public class Entity
             e.printStackTrace();
         }
         return Image;
+    }
+
+    public int getCurrentWeaponSlot() {
+    }
+
+    public int getCurrentShieldSlot() {
     }
 }

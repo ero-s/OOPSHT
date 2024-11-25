@@ -5,14 +5,16 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener
 {
-    Panel panel;
+    public String godModeOn;
+    public boolean showDebugText;
+    GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
 
     // debug
     boolean checkDrawTime;
 
-    public KeyHandler(GamePanel panel) {
-        this.panel = panel;
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
     }
 
     @Override
@@ -26,54 +28,54 @@ public class KeyHandler implements KeyListener
         int code = e.getKeyCode(); // returns the integer keycode associated with the key that was pressed
 
         // title state
-        if(panel.gameState == panel.titleState) {
+        if(gp.gameState == gp.titleState) {
             titleState(code);
         }
 
         // play state
-        else if(panel.gameState == panel.playState) {
+        else if(gp.gameState == gp.playState) {
             playState(code);
         }
         // pause state
-        else if(panel.gameState == panel.pauseState) {
+        else if(gp.gameState == gp.pauseState) {
             pauseState(code);
         }
 
         // dialogue state
-        else if(panel.gameState == panel.dialogueState) {
+        else if(gp.gameState == gp.dialogueState) {
             dialogueState(code);
         }
         // option state
-        else if (panel.gameState == panel.characterState) {
+        else if (gp.gameState == gp.characterState) {
             optionsState(code);
         }
         // character state
-        else if (panel.gameState == panel.optionsState) {
+        else if (gp.gameState == gp.optionsState) {
             optionsState(code);
         }
     }
     public void titleState(int code) {
         if(code == KeyEvent.VK_W){
-            panel.ui.commandNum--;
-            if(panel.ui.commandNum < 0) {
-                panel.ui.commandNum = 2;
+            gp.ui.commandNum--;
+            if(gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 2;
             }
         }
         if(code == KeyEvent.VK_S){
-            panel.ui.commandNum++;
-            if(panel.ui.commandNum > 2) {
-                panel.ui.commandNum = 0;
+            gp.ui.commandNum++;
+            if(gp.ui.commandNum > 2) {
+                gp.ui.commandNum = 0;
             }
         }
         if (code == KeyEvent.VK_ENTER) {
-            if(panel.ui.commandNum == 0) {
-                panel.gameState = panel.playState;
-                panel.playMusic(0);
+            if(gp.ui.commandNum == 0) {
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
             }
-            if (panel.ui.commandNum == 1) {
+            if (gp.ui.commandNum == 1) {
                 // add later (this one is for the load game)
             }
-            if (panel.ui.commandNum == 2) {
+            if (gp.ui.commandNum == 2) {
                 System.exit(0);
             }
         }
@@ -92,10 +94,10 @@ public class KeyHandler implements KeyListener
             rightPressed = true;
         }
         if(code == KeyEvent.VK_P){
-            panel.gameState = panel.pauseState;
+            gp.gameState = gp.pauseState;
         }
         if (code == KeyEvent.VK_C) {
-            panel.gameState = panel.characterState;
+            gp.gameState = gp.characterState;
         }
         if(code == KeyEvent.VK_ENTER){
             enterPressed = true;
@@ -104,7 +106,7 @@ public class KeyHandler implements KeyListener
             shotKeyPressed = true;
         }
         if(code == KeyEvent.VK_ESCAPE){
-            panel.gameState = panel.optionsState;
+            gp.gameState = gp.optionsState;
         }
         // debug
         if(code == KeyEvent.VK_T){
@@ -118,98 +120,98 @@ public class KeyHandler implements KeyListener
     }
     public void pauseState (int code) {
         if(code == KeyEvent.VK_P){
-            panel.gameState = panel.playState;
+            gp.gameState = gp.playState;
         }
     }
     public void dialogueState (int code) {
         if(code == KeyEvent.VK_ENTER) {
-            panel.gameState = panel.playState;
+            gp.gameState = gp.playState;
         }
     }
     public void characterState (int code) {
         if(code == KeyEvent.VK_C) {
-            panel.gameState = panel.playState;
+            gp.gameState = gp.playState;
         }
         if(code == KeyEvent.VK_W) {
-            if(panel.ui.slotRow != 0) {
-                panel.ui.slotRow--;
-                panel.playSE(8);
+            if(gp.ui.slotRow != 0) {
+                gp.ui.slotRow--;
+                gp.playSE(8);
             }
         }
         if(code == KeyEvent.VK_A) {
-            if(panel.ui.slotCol != 0) {
-                panel.ui.slotCol--;
-                panel.playSE(8);
+            if(gp.ui.slotCol != 0) {
+                gp.ui.slotCol--;
+                gp.playSE(8);
             }
         }
         if(code == KeyEvent.VK_S) {
-            if(panel.ui.slotRow != 3) {
-                panel.ui.slotRow++;
-                panel.playSE(8);
+            if(gp.ui.slotRow != 3) {
+                gp.ui.slotRow++;
+                gp.playSE(8);
             }
         }
         if(code == KeyEvent.VK_D) {
-            if(panel.ui.slotCol != 4) {
-                panel.ui.slotCol++;
-                panel.playSE(8);
+            if(gp.ui.slotCol != 4) {
+                gp.ui.slotCol++;
+                gp.playSE(8);
             }
         }
         if (code == KeyEvent.VK_ENTER) {
-            panel.player.selectItem();
+            gp.player.selectItem();
         }
     }
     public void optionsState(int code)
     {
         if(code == KeyEvent.VK_ESCAPE) {
-            panel.gameState = panel.playState;
+            gp.gameState = gp.playState;
         }
         if(code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
 
         int maxCommandNum = 0;
-        switch(panel.ui.subState) {
+        switch(gp.ui.subState) {
             case 0: maxCommandNum = 4; break;
             case 3: maxCommandNum = 1; break;
         }
         if(code == KeyEvent.VK_W) {
-            panel.ui.commandNum--;
-            panel.playSE(9);
-            if(panel.ui.commandNum < 0) {
-                panel.ui.commandNum = maxCommandNum;
+            gp.ui.commandNum--;
+            gp.playSE(9);
+            if(gp.ui.commandNum < 0) {
+                gp.ui.commandNum = maxCommandNum;
             }
         }
         if(code == KeyEvent.VK_S) {
-            panel.ui.commandNum++;
-            panel.playSE(9);
-            if(panel.ui.commandNum > maxCommandNum) {
-                panel.ui.commandNum = 0;
+            gp.ui.commandNum++;
+            gp.playSE(9);
+            if(gp.ui.commandNum > maxCommandNum) {
+                gp.ui.commandNum = 0;
             }
         }
         if (code == KeyEvent.VK_A) {
-            if(panel.ui.subState == 0) {
-                if(panel.ui.commandNum == 1 && panel.sound.volumeScale > 0) {
-                    panel.sound.volumeScale--;
-                    panel.sound.checkVolume();
-                    panel.playSE(9);
+            if(gp.ui.subState == 0) {
+                if(gp.ui.commandNum == 1 && gp.sound.volumeScale > 0) {
+                    gp.sound.volumeScale--;
+                    gp.sound.checkVolume();
+                    gp.playSE(9);
                 }
-                if(panel.ui.commandNum == 2 && panel.SE.volumeScale > 0) {
-                    panel.SE.volumeScale--;
-                    panel.playSE(9);
+                if(gp.ui.commandNum == 2 && gp.SE.volumeScale > 0) {
+                    gp.SE.volumeScale--;
+                    gp.playSE(9);
                 }
             }
         }
         if (code == KeyEvent.VK_D) {
-            if(panel.ui.subState == 0) {
-                if(panel.ui.commandNum == 1 && panel.sound.volumeScale < 5) {
-                    panel.sound.volumeScale++;
-                    panel.sound.checkVolume();
-                    panel.playSE(9);
+            if(gp.ui.subState == 0) {
+                if(gp.ui.commandNum == 1 && gp.sound.volumeScale < 5) {
+                    gp.sound.volumeScale++;
+                    gp.sound.checkVolume();
+                    gp.playSE(9);
                 }
             }
-            if(panel.ui.commandNum == 2 && panel.SE.volumeScale < 5) {
-                panel.SE.volumeScale++;
-                panel.playSE(9);
+            if(gp.ui.commandNum == 2 && gp.SE.volumeScale < 5) {
+                gp.SE.volumeScale++;
+                gp.playSE(9);
             }
         }
     }

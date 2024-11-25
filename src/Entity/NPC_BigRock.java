@@ -37,14 +37,14 @@ public class NPC_BigRock extends Entity{
     }
     public void getImage()
     {
-        up1 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        up2 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        down1 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        down2 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        left1 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        left2 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        right1 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
-        right2 = setup("/npc/bigrock",gp.tileSize,gp.tileSize);
+        up1 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        up2 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        down1 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        down2 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        left1 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        left2 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        right1 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
+        right2 = setup("/npc/bigrock", gp.getTileSize(), gp.getTileSize());
     }
     public void setDialogue()
     {
@@ -95,20 +95,20 @@ public class NPC_BigRock extends Entity{
         ArrayList<Entity> rockList = new ArrayList<>();
 
         //Create a plate list
-        for(int i = 0; i < gp.iTile[1].length; i++)
+        for(int i = 0; i < gp.getiTile()[1].length; i++)
         {
-            if(gp.iTile[gp.currentMap][i] != null && gp.iTile[gp.currentMap][i].name != null && gp.iTile[gp.currentMap][i].name.equals(IT_MetalPlate.itName))
+            if(gp.getiTile()[gp.getCurrentMap()][i] != null && gp.getiTile()[gp.getCurrentMap()][i].name != null && gp.getiTile()[gp.getCurrentMap()][i].name.equals(IT_MetalPlate.itName))
             {
-                plateList.add(gp.iTile[gp.currentMap][i]);
+                plateList.add(gp.getiTile()[gp.getCurrentMap()][i]);
             }
         }
 
         //Create a rock list
-        for(int i = 0; i < gp.npc[1].length; i++)
+        for(int i = 0; i < gp.getNpc()[1].length; i++)
         {
-            if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(NPC_BigRock.npcName))
+            if(gp.getNpc()[gp.getCurrentMap()][i] != null && gp.getNpc()[gp.getCurrentMap()][i].name.equals(NPC_BigRock.npcName))
             {
-                rockList.add(gp.npc[gp.currentMap][i]);
+                rockList.add(gp.getNpc()[gp.getCurrentMap()][i]);
             }
         }
 
@@ -151,11 +151,11 @@ public class NPC_BigRock extends Entity{
         //If all the rocks are on the plates, the iron door opens
         if(count == rockList.size())
         {
-            for(int i = 0; i < gp.obj[1].length; i++)
+            for(int i = 0; i < gp.getObj()[1].length; i++)
             {
-                if(gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals(OBJ_Door_Iron.objName))
+                if(gp.getObj()[gp.getCurrentMap()][i] != null && gp.getObj()[gp.getCurrentMap()][i].name.equals(OBJ_Door_Iron.objName))
                 {
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.getObj()[gp.getCurrentMap()][i] = null;
                     gp.playSE(21);
                 }
             }

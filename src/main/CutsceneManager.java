@@ -52,40 +52,40 @@ public class CutsceneManager {
     {
         if(scenePhase == 0)
         {
-            gp.bossBattleOn =true;
+            gp.setBossBattleOn(true);
 
             //Shut the iron door to trap player
-            for(int i = 0; i < gp.obj[1].length; i++) //Search a vacant slot for the iron door
+            for(int i = 0; i < gp.getObj()[1].length; i++) //Search a vacant slot for the iron door
             {
-                if(gp.obj[gp.currentMap][i] == null)
+                if(gp.getObj()[gp.getCurrentMap()][i] == null)
                 {
-                    gp.obj[gp.currentMap][i] = new OBJ_Door_Iron(gp);
-                    gp.obj[gp.currentMap][i].worldX = gp.tileSize * 25;
-                    gp.obj[gp.currentMap][i].worldY = gp.tileSize * 28;
-                    gp.obj[gp.currentMap][i].temp = true; //only need during the boss fight
+                    gp.getObj()[gp.getCurrentMap()][i] = new OBJ_Door_Iron(gp);
+                    gp.getObj()[gp.getCurrentMap()][i].worldX = gp.getTileSize() * 25;
+                    gp.getObj()[gp.getCurrentMap()][i].worldY = gp.getTileSize() * 28;
+                    gp.getObj()[gp.getCurrentMap()][i].temp = true; //only need during the boss fight
                     gp.playSE(21);
                     break;
                 }
             }
-            for(int i = 0; i < gp.npc[1].length; i++) //Search a vacant slot for the player dummy
+            for(int i = 0; i < gp.getNpc()[1].length; i++) //Search a vacant slot for the player dummy
             {
-                if(gp.npc[gp.currentMap][i] == null)
+                if(gp.getNpc()[gp.getCurrentMap()][i] == null)
                 {
-                    gp.npc[gp.currentMap][i] = new PlayerDummy(gp);
-                    gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
-                    gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
-                    gp.npc[gp.currentMap][i].direction = gp.player.direction;
+                    gp.getNpc()[gp.getCurrentMap()][i] = new PlayerDummy(gp);
+                    gp.getNpc()[gp.getCurrentMap()][i].worldX = gp.getPlayer().worldX;
+                    gp.getNpc()[gp.getCurrentMap()][i].worldY = gp.getPlayer().worldY;
+                    gp.getNpc()[gp.getCurrentMap()][i].direction = gp.getPlayer().direction;
                     break;
                 }
             }
-            gp.player.drawing = false;
+            gp.getPlayer().drawing = false;
 
             scenePhase++;
         }
         if(scenePhase == 1)
         {
-            gp.player.worldY -= 2;
-            if(gp.player.worldY < gp.tileSize * 16) //stop camera
+            gp.getPlayer().worldY -= 2;
+            if(gp.getPlayer().worldY < gp.getTileSize() * 16) //stop camera
             {
                 scenePhase++;
             }
@@ -93,12 +93,12 @@ public class CutsceneManager {
         if(scenePhase == 2)
         {
             //Search for the boss
-            for(int i = 0; i < gp.monster[1].length; i++)
+            for(int i = 0; i < gp.getMonster()[1].length; i++)
             {
-                if(gp.monster[gp.currentMap][i] != null && gp.monster[gp.currentMap][i].name.equals(MON_SkeletonLord.monName))
+                if(gp.getMonster()[gp.getCurrentMap()][i] != null && gp.getMonster()[gp.getCurrentMap()][i].name.equals(MON_SkeletonLord.monName))
                 {
-                    gp.monster[gp.currentMap][i].sleep = false;
-                    gp.ui.npc = gp.monster[gp.currentMap][i];
+                    gp.getMonster()[gp.getCurrentMap()][i].sleep = false;
+                    gp.getUi().npc = gp.getMonster()[gp.getCurrentMap()][i];
                     scenePhase++;
                     break;
                 }
@@ -107,7 +107,7 @@ public class CutsceneManager {
         if(scenePhase == 3)
         {
             // The boss speaks
-            gp.ui.drawDialogueScreen(); // increases scenePhase
+            gp.getUi().drawDialogueScreen(); // increases scenePhase
 
         }
         if(scenePhase == 4)
@@ -115,26 +115,26 @@ public class CutsceneManager {
             // Return to the player
 
             //Search for the dummy
-            for(int i = 0; i < gp.npc[1].length; i++)
+            for(int i = 0; i < gp.getNpc()[1].length; i++)
             {
-                if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(PlayerDummy.npcName))
+                if(gp.getNpc()[gp.getCurrentMap()][i] != null && gp.getNpc()[gp.getCurrentMap()][i].name.equals(PlayerDummy.npcName))
                 {
                     //Restore the player position
-                    gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
-                    gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
-                    gp.player.direction = gp.npc[gp.currentMap][i].direction;
+                    gp.getPlayer().worldX = gp.getNpc()[gp.getCurrentMap()][i].worldX;
+                    gp.getPlayer().worldY = gp.getNpc()[gp.getCurrentMap()][i].worldY;
+                    gp.getPlayer().direction = gp.getNpc()[gp.getCurrentMap()][i].direction;
                     //Delete the dummy
-                    gp.npc[gp.currentMap][i] = null;
+                    gp.getNpc()[gp.getCurrentMap()][i] = null;
                     break;
                 }
             }
             //Start drawing the player
-            gp.player.drawing = true;
+            gp.getPlayer().drawing = true;
 
             //Reset
             sceneNum = NA;
             scenePhase = 0;
-            gp.gameState = gp.playState;
+            gp.setGameState(gp.getPlayState());
 
             //Change the music
             gp.stopMusic();
@@ -146,13 +146,13 @@ public class CutsceneManager {
         if(scenePhase == 0)
         {
             gp.stopMusic();
-            gp.ui.npc = new OBJ_BlueHeart(gp);
+            gp.getUi().npc = new OBJ_BlueHeart(gp);
             scenePhase++;
         }
         if(scenePhase == 1)
         {
             //Display dialogues
-            gp.ui.drawDialogueScreen();
+            gp.getUi().drawDialogueScreen();
         }
         if(scenePhase == 2)
         {
@@ -218,7 +218,7 @@ public class CutsceneManager {
 
             alpha = graduallyAlpha(alpha, 0.01f);
 
-            drawString(alpha,120f, gp.screenHeight/2, "2D Adventure", 40);
+            drawString(alpha,120f, gp.getScreenHeight() /2, "2D Adventure", 40);
 
             if(counterReached(480) == true && alpha == 1f)
             {
@@ -233,7 +233,7 @@ public class CutsceneManager {
 
             alpha = graduallyAlpha(alpha, 0.01f);
 
-            y = gp.screenHeight/2;
+            y = gp.getScreenHeight() /2;
 
             drawString(alpha, 38f,  y, endCredit, 40);
 
@@ -257,7 +257,7 @@ public class CutsceneManager {
                 scenePhase = 0;
 
                 //Transition to game again
-                gp.gameState = gp.playState;
+                gp.setGameState(gp.getPlayState());
                 gp.resetGame(false);
 
             }
@@ -279,7 +279,7 @@ public class CutsceneManager {
     {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         g2.setColor(Color.black);
-        g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0,0, gp.getScreenWidth(), gp.getScreenHeight());
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
     public void drawString(float alpha, float fontSize, int y, String text, int lineHeight)
@@ -290,7 +290,7 @@ public class CutsceneManager {
 
         for(String line: text.split("\n"))
         {
-            int x = gp.ui.getXforCenteredText(line);
+            int x = gp.getUi().getXforCenteredText(line);
             g2.drawString(line, x, y);
             y += lineHeight;
         }

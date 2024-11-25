@@ -41,14 +41,14 @@ public class MON_RedSlime extends Entity {
 
     public void getImage()
     {
-        up1 = setup("/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/monster/redslime_down_2",gp.tileSize,gp.tileSize);
-        down1 = setup("/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/monster/redslime_down_2",gp.tileSize,gp.tileSize);
-        left1 = setup("/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/monster/redslime_down_2",gp.tileSize,gp.tileSize);
-        right1 = setup("/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/monster/redslime_down_2",gp.tileSize,gp.tileSize);
+        up1 = setup("/monster/redslime_down_1", gp.getTileSize(), gp.getTileSize());
+        up2 = setup("/monster/redslime_down_2", gp.getTileSize(), gp.getTileSize());
+        down1 = setup("/monster/redslime_down_1", gp.getTileSize(), gp.getTileSize());
+        down2 = setup("/monster/redslime_down_2", gp.getTileSize(), gp.getTileSize());
+        left1 = setup("/monster/redslime_down_1", gp.getTileSize(), gp.getTileSize());
+        left2 = setup("/monster/redslime_down_2", gp.getTileSize(), gp.getTileSize());
+        right1 = setup("/monster/redslime_down_1", gp.getTileSize(), gp.getTileSize());
+        right2 = setup("/monster/redslime_down_2", gp.getTileSize(), gp.getTileSize());
     }
     public void setAction()
     {
@@ -56,10 +56,10 @@ public class MON_RedSlime extends Entity {
         {
 
             //Check if it stops chasing
-            checkStopChasingOrNot(gp.player,15,100);
+            checkStopChasingOrNot(gp.getPlayer(),15,100);
 
             //Search the direction to go
-            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
+            searchPath(getGoalCol(gp.getPlayer()), getGoalRow(gp.getPlayer()));
 
             //Check if it shoots a projectile
             checkShootOrNot(200, 30);
@@ -67,7 +67,7 @@ public class MON_RedSlime extends Entity {
         else
         {
             //Check if it starts chasing
-            checkStartChasingOrNot(gp.player, 5, 100);
+            checkStartChasingOrNot(gp.getPlayer(), 5, 100);
 
             //Get a random direction
             getRandomDirection(120);

@@ -30,14 +30,14 @@ public class NPC_OldMan extends Entity{
     }
     public void getImage()
     {
-        up1 = setup("/npc/oldman_up_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/npc/oldman_up_2",gp.tileSize,gp.tileSize);
-        down1 = setup("/npc/oldman_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/npc/oldman_down_2",gp.tileSize,gp.tileSize);
-        left1 = setup("/npc/oldman_left_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/npc/oldman_left_2",gp.tileSize,gp.tileSize);
-        right1 = setup("/npc/oldman_right_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/npc/oldman_right_2",gp.tileSize,gp.tileSize);
+        up1 = setup("/npc/oldman_up_1", gp.getTileSize(), gp.getTileSize());
+        up2 = setup("/npc/oldman_up_2", gp.getTileSize(), gp.getTileSize());
+        down1 = setup("/npc/oldman_down_1", gp.getTileSize(), gp.getTileSize());
+        down2 = setup("/npc/oldman_down_2", gp.getTileSize(), gp.getTileSize());
+        left1 = setup("/npc/oldman_left_1", gp.getTileSize(), gp.getTileSize());
+        left2 = setup("/npc/oldman_left_2", gp.getTileSize(), gp.getTileSize());
+        right1 = setup("/npc/oldman_right_1", gp.getTileSize(), gp.getTileSize());
+        right2 = setup("/npc/oldman_right_2", gp.getTileSize(), gp.getTileSize());
     }
     public void setDialogue()
     {
@@ -60,8 +60,8 @@ public class NPC_OldMan extends Entity{
 //            int goalCol = 12;
 //            int goalRow = 9;
 
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+            int goalCol = (gp.getPlayer().worldX + gp.getPlayer().solidArea.x) / gp.getTileSize();
+            int goalRow = (gp.getPlayer().worldY + gp.getPlayer().solidArea.y) / gp.getTileSize();
             searchPath(goalCol, goalRow);
 
         }

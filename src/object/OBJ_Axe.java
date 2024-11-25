@@ -11,7 +11,7 @@ public class OBJ_Axe extends Entity {
 
         type = type_axe;
         name = objName;
-        down1 = setup("/objects/axe",gp.tileSize,gp.tileSize);
+        down1 = setup("/objects/axe", gp.getTileSize(), gp.getTileSize());
         attackValue = 2;
         attackArea.width = 26;
         attackArea.height= 26;

@@ -1,5 +1,6 @@
 package Entity;
 
+import main.GamePanel;
 import main.Panel;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ public class Particle extends Entity
     int size;
     int xd;
     int yd;
-    public Particle(Panel panel, Entity generator, Color color, int size, int speed, int maxLife, int xd, int yd)
+    public Particle(GamePanel panel, Entity generator, Color color, int size, int speed, int maxLife, int xd, int yd)
     {
         super(panel);
 
@@ -24,7 +25,7 @@ public class Particle extends Entity
         this.yd = yd;
 
         life = maxLife;
-        int offset = (panel.tileSize/2) - (size/2);
+        int offset = (panel.getTileSize() /2) - (size/2);
         worldX = generator.worldX + offset;
         worldY = generator.worldY + offset;
     }

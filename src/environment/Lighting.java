@@ -27,19 +27,19 @@ public class Lighting {
     public void setLightSource()
     {
         //Create a buffered image
-        darknessFilter = new BufferedImage(gp.screenWidth,gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
+        darknessFilter = new BufferedImage(gp.getScreenWidth(), gp.getScreenHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = (Graphics2D)darknessFilter.getGraphics();
 
 
-        if(gp.player.currentLight == null)
+        if(gp.getPlayer().currentLight == null)
         {
             g2.setColor(new Color (0,0,0.08f,0.97f));
         }
         else
         {
             //Get the center x and y of the light circle
-            int centerX = gp.player.screenX + (gp.tileSize)/2;
-            int centerY = gp.player.screenY + (gp.tileSize)/2;
+            int centerX = gp.getPlayer().screenX + (gp.getTileSize())/2;
+            int centerY = gp.getPlayer().screenY + (gp.getTileSize())/2;
 
             //Create a gradation effect within the light circle
             Color color[] = new Color[12];
@@ -72,13 +72,13 @@ public class Lighting {
             fraction[11] = 1f;    //Edge
 
             //Create a gradation paint settings for the light circle
-            RadialGradientPaint gPaint = new RadialGradientPaint(centerX,centerY,gp.player.currentLight.lightRadius,fraction, color);
+            RadialGradientPaint gPaint = new RadialGradientPaint(centerX,centerY, gp.getPlayer().currentLight.lightRadius,fraction, color);
 
             //Set the gradient data on g2
             g2.setPaint(gPaint);
         }
 
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0, gp.getScreenWidth(), gp.getScreenHeight());
 
         g2.dispose();
     }
@@ -89,10 +89,10 @@ public class Lighting {
     }
     public void update()
     {
-        if(gp.player.lightUpdated == true)
+        if(gp.getPlayer().lightUpdated == true)
         {
             setLightSource();
-            gp.player.lightUpdated = false;
+            gp.getPlayer().lightUpdated = false;
         }
 
         //Check the state of the day
@@ -135,11 +135,11 @@ public class Lighting {
     }
     public void draw(Graphics2D g2)
     {
-        if(gp.currentArea == gp.outside)
+        if(gp.getCurrentArea() == gp.getOutside())
         {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,filterAlpha)); //only change alpha when outside
         }
-        if(gp.currentArea == gp.outside || gp.currentArea == gp.dungeon)
+        if(gp.getCurrentArea() == gp.getOutside() || gp.getCurrentArea() == gp.getDungeon())
         {
             g2.drawImage(darknessFilter,0,0,null);  //draw darkness filter outside or dungeon. alpha = 1f;
         }

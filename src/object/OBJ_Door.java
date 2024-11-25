@@ -14,7 +14,7 @@ public class OBJ_Door extends Entity {
         this.gp = gp;
         type = type_obstacle;
         name = objName;
-        down1 = setup("/objects/door",gp.tileSize,gp.tileSize);
+        down1 = setup("/objects/door", gp.getTileSize(), gp.getTileSize());
         collision = true;
 
         solidArea.x = 0;
