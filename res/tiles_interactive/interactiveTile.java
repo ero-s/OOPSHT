@@ -1,18 +1,18 @@
 package tiles_interactive;
 import Entity.Entity;
-import main.panel;
+import main.GamePanel;
 
 import java.awt.*;
 
 public class interactiveTile extends Entity
 {
-    panel panel;
+    GamePanel gp;
     public boolean destructible = false;
 
-    public interactiveTile(main.panel panel, int col, int row)
+    public interactiveTile(GamePanel gp, int col, int row)
     {
-        super(panel);
-        this.panel = panel;
+        super(gp);
+        this.gp = gp;
     }
     public boolean isCorrectWeapon(Entity entity) {
         boolean isCorrectWeapon = false;
@@ -38,13 +38,13 @@ public class interactiveTile extends Entity
         }
     }
     public void draw (Graphics2D g2) {
-        int screenX = worldX - panel.player.worldX + panel.player.screenX;
-        int screenY = worldY - panel.player.worldY + panel.player.screenY;
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        if(worldX + panel.tileSize > panel.player.worldX - panel.player.screenX &&
-                worldX - panel.tileSize < panel.player.worldX + panel.player.screenX &&
-                worldY + panel.tileSize > panel.player.worldY - panel.player.screenY &&
-                worldY - panel.tileSize < panel.player.worldY + panel.player.screenY)
+        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY)
         {
             g2.drawImage(down1, screenX, screenY, null);
         }

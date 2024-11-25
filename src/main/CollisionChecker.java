@@ -5,7 +5,7 @@ import Entity.Entity;
 public class CollisionChecker {
     GamePanel gp;
 
-    public CollisionChecker(panel gp)
+    public CollisionChecker(GamePanel gp)
     {
         this.gp = gp;
     }

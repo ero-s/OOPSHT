@@ -1,8 +1,8 @@
 package tile;
 
 import main.GamePanel;
+import main.Panel;
 import main.UtilityTool;
-import main.panel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class TileManager  {
     ArrayList<String> collisionStatus = new ArrayList<>();
 
 
-    public TileManager(panel gp)
+    public TileManager(Panel gp)
     {
         this.gp = gp;
 

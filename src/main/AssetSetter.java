@@ -15,7 +15,7 @@ public class AssetSetter {
 
     GamePanel gp;
 
-    public AssetSetter(panel gp)
+    public AssetSetter(GamePanel gp)
     {
         this.gp = gp;
     }

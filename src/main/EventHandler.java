@@ -13,7 +13,7 @@ public class EventHandler{
     int tempMap, tempCol, tempRow;
 
 
-    public EventHandler(panel gp)
+    public EventHandler(GamePanel gp)
     {
         //Set event's interact 2x2 pixels
         this.gp = gp;

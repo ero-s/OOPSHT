@@ -1,5 +1,6 @@
 package Entity;
 
+import main.GamePanel;
 import main.KeyHandler;
 import object.*;
 
@@ -16,7 +17,7 @@ public class Player extends Entity{
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
 
-    public Player(main.panel gp, KeyHandler keyH)
+    public Player(GamePanel gp, KeyHandler keyH)
     {
         super(gp); // calling constructor of super class(from entity class)
         this.keyH=keyH;

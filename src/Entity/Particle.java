@@ -1,6 +1,6 @@
 package Entity;
 
-import main.panel;
+import main.Panel;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ public class Particle extends Entity
     int size;
     int xd;
     int yd;
-    public Particle(main.panel panel, Entity generator, Color color, int size, int speed, int maxLife, int xd, int yd)
+    public Particle(Panel panel, Entity generator, Color color, int size, int speed, int maxLife, int xd, int yd)
     {
         super(panel);
 

@@ -1,11 +1,11 @@
 package object;
 import Entity.Entity;
-import main.panel;
+import main.Panel;
 
 public class OBJ_Coin extends Entity
 {
-    panel panel;
-    public OBJ_Coin(main.panel panel)
+    Panel panel;
+    public OBJ_Coin(Panel panel)
     {
         super(panel);
         this.panel = panel;

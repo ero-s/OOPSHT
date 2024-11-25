@@ -37,7 +37,7 @@ public class UI {
     int charIndex = 0;
     String combinedText = "";
 
-    public UI(panel gp)
+    public UI(GamePanel gp)
     {
         this.gp = gp;
         try

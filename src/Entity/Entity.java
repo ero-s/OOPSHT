@@ -1,5 +1,6 @@
 package Entity;
 
+import main.GamePanel;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class Entity
 {
-    public main.panel panel;
+    public Panel panel;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, image2, image3;
@@ -80,7 +81,7 @@ public class Entity
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
 
-    public Entity(main.panel panel) {
+    public Entity(GamePanel panel) {
         this.panel = panel;
 
     }

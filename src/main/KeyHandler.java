@@ -5,13 +5,13 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener
 {
-    panel panel;
+    Panel panel;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
 
     // debug
     boolean checkDrawTime;
 
-    public KeyHandler(panel panel) {
+    public KeyHandler(GamePanel panel) {
         this.panel = panel;
     }
 

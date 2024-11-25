@@ -1,12 +1,12 @@
 package tiles_interactive;
 
-import main.panel;
+import main.Panel;
 
 public class IT_Trunk extends interactiveTile
 {
-    main.panel panel;
+    Panel panel;
 
-    public IT_Trunk(main.panel panel, int col, int row)
+    public IT_Trunk(Panel panel, int col, int row)
     {
         super(panel, col, row);
         this.panel = panel;

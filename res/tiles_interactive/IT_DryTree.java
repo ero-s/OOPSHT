@@ -1,14 +1,14 @@
 package tiles_interactive;
 import Entity.Entity;
-import main.panel;
+import main.Panel;
 
 import java.awt.*;
 
 public class IT_DryTree extends interactiveTile
 {
-    panel panel;
+    Panel panel;
 
-    public IT_DryTree(main.panel panel, int col, int row)
+    public IT_DryTree(Panel panel, int col, int row)
     {
         super(panel, col, row);
         this.panel = panel;
